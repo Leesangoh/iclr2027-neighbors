@@ -1,0 +1,214 @@
+{
+ "asof": "October 20, 2026",
+ "stats": [
+  {
+   "n": "43,013",
+   "l": "public submissions, incl. 1,838 desk rejected and 299 withdrawn"
+  },
+  {
+   "n": "2.2\u00d7",
+   "l": "ICLR 2026 had 19,814"
+  },
+  {
+   "n": "229",
+   "l": "topics found automatically"
+  },
+  {
+   "n": "0 bytes",
+   "l": "of your text sent anywhere"
+  }
+ ],
+ "words": [
+  {
+   "w": "world model",
+   "n27": 852,
+   "p27": 1.9807965033826982,
+   "n26": 129,
+   "p26": 0.6510548097304936
+  },
+  {
+   "w": "memory",
+   "n27": 1509,
+   "p27": 3.508241694371469,
+   "n26": 277,
+   "p26": 1.3980014131422227
+  },
+  {
+   "w": "agent",
+   "n27": 5259,
+   "p27": 12.226536163485457,
+   "n26": 1232,
+   "p26": 6.217825779751691
+  },
+  {
+   "w": "VLA",
+   "n27": 524,
+   "p27": 1.2182363471508613,
+   "n26": 98,
+   "p26": 0.4945997779347936
+  },
+  {
+   "w": "Beyond",
+   "n27": 884,
+   "p27": 2.0551926161858045,
+   "n26": 211,
+   "p26": 1.0649036035126678
+  },
+  {
+   "w": "a question mark",
+   "n27": 929,
+   "p27": 2.1598121498151723,
+   "n26": 298,
+   "p26": 1.5039870798425357
+  },
+  {
+   "w": "LLM",
+   "n27": 4333,
+   "p27": 10.073698649245577,
+   "n26": 3146,
+   "p26": 15.877662259008781
+  },
+  {
+   "w": "reasoning",
+   "n27": 2326,
+   "p27": 5.40766744937577,
+   "n26": 1648,
+   "p26": 8.317351367719795
+  }
+ ],
+ "areas": [
+  {
+   "a": "foundation or frontier models, including LLMs",
+   "n": 6766,
+   "n26": 2660,
+   "d": 4.847768253029855
+  },
+  {
+   "a": "applications to computer vision, audio, language, and other modalities",
+   "n": 5530,
+   "n26": 2708,
+   "d": 4.4846292947558775
+  },
+  {
+   "a": "alignment, fairness, safety, privacy, and societal considerations",
+   "n": 3271,
+   "n26": 1697,
+   "d": 3.393457658208499
+  },
+  {
+   "a": "datasets and benchmarks",
+   "n": 3192,
+   "n26": 1591,
+   "d": 5.388471177944862
+  },
+  {
+   "a": "generative models",
+   "n": 2909,
+   "n26": 1682,
+   "d": 3.9876246132691646
+  },
+  {
+   "a": "reinforcement learning",
+   "n": 2399,
+   "n26": 1064,
+   "d": 4.0016673614005835
+  },
+  {
+   "a": "applications to robotics, autonomy, planning",
+   "n": 2279,
+   "n26": 598,
+   "d": 4.344010530934621
+  },
+  {
+   "a": "unsupervised, self-supervised, semi-supervised, and supervised representation learning",
+   "n": 2175,
+   "n26": 1166,
+   "d": 4.275862068965517
+  },
+  {
+   "a": "applications to physical sciences (physics, chemistry, biology, etc.)",
+   "n": 1994,
+   "n26": 860,
+   "d": 3.20962888665998
+  },
+  {
+   "a": "interpretability and explainable AI",
+   "n": 1807,
+   "n26": 789,
+   "d": 4.039845047039291
+  },
+  {
+   "a": "optimization",
+   "n": 1610,
+   "n26": 740,
+   "d": 3.2919254658385095
+  },
+  {
+   "a": "learning theory",
+   "n": 1384,
+   "n26": 515,
+   "d": 3.9739884393063583
+  },
+  {
+   "a": "transfer learning, meta learning, and lifelong learning",
+   "n": 1179,
+   "n26": 571,
+   "d": 4.580152671755725
+  },
+  {
+   "a": "other topics in machine learning (i.e., none of the above)",
+   "n": 1157,
+   "n26": 813,
+   "d": 5.358686257562662
+  },
+  {
+   "a": "learning on time series and dynamical systems",
+   "n": 1154,
+   "n26": 466,
+   "d": 3.6395147313691507
+  },
+  {
+   "a": "learning on graphs and other geometries & topologies",
+   "n": 958,
+   "n26": 534,
+   "d": 3.862212943632568
+  },
+  {
+   "a": "probabilistic methods (Bayesian methods, variational inference, sampling, UQ, etc.)",
+   "n": 885,
+   "n26": 382,
+   "d": 2.2598870056497176
+  },
+  {
+   "a": "applications to neuroscience & cognitive science",
+   "n": 725,
+   "n26": 381,
+   "d": 2.896551724137931
+  },
+  {
+   "a": "infrastructure, software libraries, hardware, systems, etc.",
+   "n": 706,
+   "n26": 179,
+   "d": 4.81586402266289
+  },
+  {
+   "a": "neurosymbolic & hybrid AI systems (physics-informed, logic & formal reasoning, etc.)",
+   "n": 577,
+   "n26": 225,
+   "d": 6.759098786828423
+  },
+  {
+   "a": "causal reasoning",
+   "n": 356,
+   "n26": 193,
+   "d": 5.898876404494382
+  }
+ ],
+ "method": [
+  "<b>Data.</b> Titles, abstracts, keywords and primary areas of all public ICLR 2027 submissions on OpenReview (active, desk rejected and withdrawn), collected on October 20, 2026. ICLR 2026 counts include accepted, rejected, withdrawn and desk rejected submissions (19,814). Authors are anonymous during review, so there are no author or institution stats.",
+  "<b>Similarity.</b> Each title and abstract is embedded with bge-small-en-v1.5 (384 dimensions), compressed to 256 dimensions and 8 bits so it fits in your browser. Your text is embedded with the same model, locally, and compared to every submission with cosine similarity. Exact copies of a submission are hidden from your results.",
+  "<b>Topics.</b> k-means with 250 groups on the embeddings, then groups with the same name were merged, giving 229 topics. Names come from the most distinctive author keywords in each group, cleaned up by hand. Growth vs ICLR 2026 assigns each 2026 submission to its nearest 2027 topic and compares counts. ICLR grew 2.2\u00d7 overall, so a topic is green when it grew faster than that. Topics with fewer than 10 papers in 2026 show no growth figure.",
+  "<b>Map.</b> UMAP of the embeddings. Nearby dots are about similar things. Distances between far-apart regions are not meaningful.",
+  "<b>Limits.</b> This finds papers on a similar topic, not the same method or result. Short or vague text gives noisy neighbors. Title term counts are simple pattern matches on titles. Numbers will change as papers are withdrawn after reviews come out on November 5."
+ ]
+}

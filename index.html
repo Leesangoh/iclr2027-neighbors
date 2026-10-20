@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ICLR 2027 Neighbors</title>
+<meta name="description" content="Paste your abstract and find the closest of all 43,013 ICLR 2027 submissions. Runs in your browser.">
+<meta property="og:title" content="ICLR 2027 Neighbors">
+<meta property="og:description" content="Paste your abstract. See the closest ICLR 2027 submissions, how crowded your topic is, and where it sits on the map.">
+<meta property="og:image" content="https://leesangoh.github.io/iclr2027-neighbors/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%2315130f%22/%3E%3Ccircle cx=%2211%22 cy=%2212%22 r=%223%22 fill=%22%23f4f2ee%22/%3E%3Ccircle cx=%2221%22 cy=%2220%22 r=%224%22 fill=%22%23e8491d%22/%3E%3Ccircle cx=%2222%22 cy=%229%22 r=%222%22 fill=%22%23f4f2ee%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4f2ee;--card:#fffdf9;--ink:#15130f;--muted:#5f5a51;--faint:#9a948a;--rule:#e2ddd3;--acc:#e8491d;--acc2:#1d4fe8;--ok:#1f9d5a;--warn:#c98a00;--bad:#c2372f;--you:#e8491d}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#141310;--card:#1c1a16;--ink:#f1ede5;--muted:#b3ac9f;--faint:#7c766b;--rule:#2f2b25;--acc:#ff6a3d;--acc2:#6f93ff;--you:#ff6a3d}}
+:root[data-theme="dark"]{--paper:#141310;--card:#1c1a16;--ink:#f1ede5;--muted:#b3ac9f;--faint:#7c766b;--rule:#2f2b25;--acc:#ff6a3d;--acc2:#6f93ff;--you:#ff6a3d}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.cond{font-stretch:75%}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--rule)}
+.brand{font-weight:800;letter-spacing:-.01em;font-size:15px}
+.brand b{color:var(--acc)}
+.top a.by{font-size:13px;color:var(--muted);text-decoration:none}
+.hero{padding:56px 0 28px}
+.kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);font-weight:700}
+h1{font-size:clamp(34px,6.2vw,68px);line-height:.98;letter-spacing:-.025em;margin:14px 0 18px;font-weight:850;font-stretch:80%}
+h1 em{font-style:normal;color:var(--acc)}
+.lede{font-size:clamp(16px,2vw,19px);color:var(--muted);max-width:720px;margin:0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:34px;border-top:2px solid var(--ink)}
+.stat{padding:14px 14px 4px 0}
+.stat .n{font-size:clamp(26px,3.6vw,40px);font-weight:850;font-stretch:78%;letter-spacing:-.02em;line-height:1}
+.stat .l{font-size:13px;color:var(--muted);margin-top:6px}
+.search{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:20px;margin:30px 0 10px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+.search label{font-weight:700;font-size:14px;display:block;margin-bottom:8px}
+textarea{width:100%;min-height:150px;resize:vertical;border:1px solid var(--rule);border-radius:10px;padding:14px;font:inherit;font-size:15px;background:var(--paper);color:var(--ink)}
+textarea:focus{outline:2px solid var(--acc);outline-offset:1px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+button.go{background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:12px 22px;font:inherit;font-weight:700;font-size:15px;cursor:pointer}
+button.go:disabled{opacity:.5;cursor:wait}
+button.ghost{background:transparent;border:1px solid var(--rule);color:var(--ink);border-radius:999px;padding:10px 16px;font:inherit;font-size:14px;cursor:pointer}
+.note{font-size:13px;color:var(--muted)}
+.lock{display:inline-flex;gap:6px;align-items:center}
+#status{font-size:13px;color:var(--muted);min-height:18px}
+.bar{height:4px;background:var(--rule);border-radius:4px;overflow:hidden;width:160px;display:none}
+.bar i{display:block;height:100%;background:var(--acc);width:0}
+section{padding:34px 0;border-top:1px solid var(--rule)}
+h2{font-size:clamp(24px,3.4vw,34px);letter-spacing:-.02em;margin:0 0 6px;font-weight:850;font-stretch:80%}
+.sub{color:var(--muted);margin:0 0 18px;font-size:15px}
+#results{display:none}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:18px}
+.topic-name{font-size:24px;font-weight:850;font-stretch:80%;letter-spacing:-.01em;margin:4px 0 10px}
+.big{font-size:44px;font-weight:850;font-stretch:76%;line-height:1;letter-spacing:-.02em}
+.kv{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.kv div .l{font-size:12px;color:var(--muted)}
+.kv div .v{font-size:22px;font-weight:800;font-stretch:80%}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--rule);color:var(--muted);background:var(--paper)}
+canvas{width:100%;display:block;border-radius:10px;background:var(--paper)}
+.maphead{display:flex;justify-content:space-between;align-items:baseline}
+#maptip{font-size:13px;color:var(--muted);min-height:20px;margin-top:6px}
+ol.nb{list-style:none;padding:0;margin:0;counter-reset:n}
+ol.nb li{display:grid;grid-template-columns:38px 1fr 64px;gap:12px;padding:12px 0;border-bottom:1px solid var(--rule);align-items:start}
+ol.nb li:before{counter-increment:n;content:counter(n);font-family:"JetBrains Mono",monospace;color:var(--faint);font-size:13px;padding-top:2px}
+.nt{font-weight:600;text-decoration:none}
+.nt:hover{text-decoration:underline}
+.meta{font-size:12px;color:var(--muted);margin-top:3px}
+.badge{font-size:11px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:1px}
+.badge.D{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
+.badge.W{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+.sim{text-align:right;font-family:"JetBrains Mono",monospace;font-size:13px}
+.sim i{display:block;height:4px;border-radius:3px;background:var(--acc);margin-top:6px;margin-left:auto}
+.lists{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--rule);padding:6px 6px 6px 0}
+td{padding:8px 6px 8px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+td.num{font-family:"JetBrains Mono",monospace;text-align:right;white-space:nowrap}
+tr.click{cursor:pointer}
+tr.click:hover td{background:color-mix(in srgb,var(--acc) 6%,transparent)}
+.hbar{height:8px;background:var(--acc);border-radius:2px;display:inline-block;vertical-align:middle}
+.up{color:var(--ok)}.down{color:var(--bad)}
+.words{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.word{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:14px}
+.word .w{font-weight:800;font-size:18px}
+.word .p{font-size:30px;font-weight:850;font-stretch:76%;margin-top:6px}
+.word .d{font-size:12px;color:var(--muted)}
+#topicPanel{display:none;margin-top:14px}
+.method{font-size:14px;color:var(--muted);columns:2;column-gap:32px}
+.method p{margin:0 0 10px;break-inside:avoid}
+footer{padding:30px 0 50px;font-size:13px;color:var(--muted);border-top:1px solid var(--rule)}
+.filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+input.q{flex:1;min-width:200px;border:1px solid var(--rule);border-radius:999px;padding:10px 14px;font:inherit;background:var(--card);color:var(--ink)}
+@media (max-width:820px){.res-grid,.lists{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.words{grid-template-columns:repeat(2,1fr)}.method{columns:1}.hero{padding-top:36px}}
+@media (max-width:420px){.wrap{padding:0 16px}ol.nb li{grid-template-columns:28px 1fr 52px;gap:8px}.kv .v{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="brand">ICLR 2027 <b>Neighbors</b></div>
+  <a class="by" href="https://x.com/sangoh64166" target="_blank" rel="noopener">by @sangoh64166</a>
+</header>
+
+<div class="hero">
+  <div class="kicker">All public ICLR 2027 submissions</div>
+  <h1>Who else submitted <em>your paper</em> to ICLR 2027?</h1>
+  <p class="lede">Paste your title and abstract. It is compared against every public submission, and you get the closest papers, how crowded your topic is, and where it sits on the map of ICLR 2027.</p>
+  <div class="stats" id="stats"></div>
+
+  <div class="search">
+    <label for="q">Your title and abstract</label>
+    <textarea id="q" placeholder="Paste a title and abstract here. A few sentences describing the idea also work."></textarea>
+    <div class="row">
+      <button class="go" id="go" disabled>Loading…</button>
+      <button class="ghost" id="rand">Try a random submission</button>
+      <div class="bar" id="bar"><i></i></div>
+      <span id="status"></span>
+    </div>
+    <p class="note lock" style="margin:10px 0 0">🔒 Your text never leaves your browser. The embedding model runs locally (about 34 MB, downloaded once).</p>
+  </div>
+</div>
+
+<section id="results">
+  <div class="res-grid">
+    <div class="card">
+      <div class="kicker">Your topic</div>
+      <div class="topic-name" id="tName"></div>
+      <div class="chips" id="tKw"></div>
+      <div class="kv">
+        <div><div class="l">Submissions in this topic</div><div class="v" id="tN"></div></div>
+        <div><div class="l">Rank by size</div><div class="v" id="tRank"></div></div>
+        <div><div class="l">ICLR 2026 → 2027</div><div class="v" id="tGrow"></div></div>
+      </div>
+      <p class="note" id="tCrowd" style="margin-top:14px"></p>
+    </div>
+    <div class="card">
+      <div class="maphead"><div class="kicker">Where you are</div><span class="note">each dot is a submission</span></div>
+      <canvas id="youMap" height="300"></canvas>
+    </div>
+  </div>
+  <h2 style="margin-top:28px">Closest submissions</h2>
+  <p class="sub">Ranked by similarity of title and abstract. Similar topic, not necessarily the same method.</p>
+  <ol class="nb" id="nb"></ol>
+</section>
+
+<section>
+  <h2>The map of ICLR 2027</h2>
+  <p class="sub">Every submission placed by what it is about. Hover or tap to see topics. Click a topic in the tables below to light it up.</p>
+  <canvas id="map" height="560"></canvas>
+  <div id="maptip"></div>
+</section>
+
+<section>
+  <h2>Topics</h2>
+  <p class="sub">Submissions grouped into <span id="kN"></span> topics. Growth compares with ICLR 2026 submissions assigned to the same topics. ICLR as a whole grew 2.2×, so green means faster than that and red means slower.</p>
+  <div class="lists">
+    <div class="card"><div class="kicker">Biggest</div><table id="tBig"></table></div>
+    <div class="card"><div class="kicker">Growing fastest</div><table id="tGrowT"></table></div>
+  </div>
+  <div class="card" id="topicPanel"></div>
+  <div class="card" style="margin-top:18px">
+    <div class="filter"><input class="q" id="tq" placeholder="Search topics or titles, e.g. world models, KV cache, protein"></div>
+    <table id="tAll"></table>
+    <div class="row"><button class="ghost" id="more">Show all topics</button></div>
+  </div>
+</section>
+
+<section>
+  <h2>What the titles say</h2>
+  <p class="sub">Share of submission titles containing each term, ICLR 2027 vs ICLR 2026.</p>
+  <div class="words" id="words"></div>
+</section>
+
+<section>
+  <h2>By primary area</h2>
+  <p class="sub">The area authors picked at submission, with desk rejections so far.</p>
+  <div class="card"><table id="areas"></table></div>
+</section>
+
+<section>
+  <h2>How this works</h2>
+  <div class="method" id="method"></div>
+</section>
+
+<footer>Data from OpenReview public submissions, collected <span id="asof"></span>. Not affiliated with ICLR. Made by <a href="https://x.com/sangoh64166" target="_blank" rel="noopener">Sangoh Lee</a>. Corrections welcome.</footer>
+</div>
+
+<script type="module">
+const $=s=>document.querySelector(s);
+const fmt=n=>n.toLocaleString('en-US');
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const [meta, clusters, extra] = await Promise.all([
+  fetch('data/meta.json').then(r=>r.json()),
+  fetch('data/clusters.json').then(r=>r.json()),
+  fetch('data/extra.json').then(r=>r.json())
+]);
+const N = meta.rows.length, DIM = meta.dim;
+const ROWS = meta.rows; // [id, title, area, status, cluster, x, y, density]
+const DENS = Float32Array.from(ROWS.map(r=>r[7])).sort();
+const AREAS = meta.areas;
+const CL = new Map(clusters.map(c=>[c.c,c]));
+const bySize = [...clusters].sort((a,b)=>b.n-a.n);
+bySize.forEach((c,i)=>c.rank=i+1);
+$('#asof').textContent = extra.asof;
+$('#kN').textContent = clusters.length;
+
+// ---------- hero stats
+$('#stats').innerHTML = extra.stats.map(s=>`<div class="stat"><div class="n">${s.n}</div><div class="l">${s.l}</div></div>`).join('');
+
+// ---------- palette for clusters (by primary area of topic)
+const PAL = ['#e8491d','#1d4fe8','#1f9d5a','#c98a00','#8a3ffc','#d12771','#0f8f8f','#6b5e3c','#3a7bd5','#b5451b','#5a8f29','#9c4dcc','#2f6f8f','#c05a00','#7a7a7a','#a0396b','#3b8a6e','#5555aa','#8f6f1f','#336699','#aa3355','#447744'];
+const areaColor = a => PAL[a % PAL.length];
+
+// ---------- map
+function setupCanvas(cv){
+  const dpr = Math.min(window.devicePixelRatio||1, 2);
+  const w = cv.clientWidth, h = parseInt(cv.getAttribute('height'));
+  cv.width = w*dpr; cv.height = h*dpr; cv.style.height = h+'px';
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0);
+  return {ctx,w,h};
+}
+function drawMap(cv, opts={}){
+  const {ctx,w,h} = setupCanvas(cv);
+  const pad = 10, sx = x => pad + x/1000*(w-2*pad), sy = y => pad + (1-y/1000)*(h-2*pad);
+  ctx.clearRect(0,0,w,h);
+  const hi = opts.highlight; // cluster id
+  const r = opts.small ? 0.9 : 1.15;
+  ctx.globalAlpha = hi!=null ? 0.12 : 0.55;
+  for (const row of ROWS){
+    ctx.fillStyle = areaColor(CL.get(row[4]).a);
+    ctx.fillRect(sx(row[5])-r, sy(row[6])-r, 2*r, 2*r);
+  }
+  if (hi!=null){
+    ctx.globalAlpha = 0.9;
+    ctx.fillStyle = css('--ink');
+    const hr = opts.small ? 1.1 : 1.5;
+    for (const row of ROWS) if (row[4]===hi) ctx.fillRect(sx(row[5])-hr, sy(row[6])-hr, 2*hr, 2*hr);
+  }
+  ctx.globalAlpha = 1;
+  if (opts.labels){
+    ctx.font = '600 11px Archivo, sans-serif'; ctx.textAlign='center';
+    const placed=[]; const maxL = w<600? 12: 40;
+    for (const c of bySize){
+      if (placed.length>=maxL) break;
+      const t = c.short, tw = ctx.measureText(t).width;
+      const x=Math.min(Math.max(sx(c.x), tw/2+6), w-tw/2-6), y=sy(c.y);
+      const box=[x-tw/2-6, y-10, x+tw/2+6, y+8];
+      if (placed.some(p=>!(box[2]<p[0]||box[0]>p[2]||box[3]<p[1]||box[1]>p[3]))) continue;
+      placed.push(box);
+      ctx.fillStyle = css('--card'); ctx.globalAlpha=.85; ctx.fillRect(box[0]+2,box[1]+1,box[2]-box[0]-4,box[3]-box[1]-2); ctx.globalAlpha=1;
+      ctx.fillStyle = css('--ink'); ctx.fillText(t, x, y+2);
+    }
+  }
+  if (opts.you){
+    const x=sx(opts.you[0]), y=sy(opts.you[1]);
+    ctx.globalAlpha=1;
+    ctx.strokeStyle = css('--card'); ctx.lineWidth=6; ctx.beginPath(); ctx.arc(x,y,11,0,7); ctx.stroke();
+    ctx.strokeStyle = css('--you'); ctx.lineWidth=2.5;
+    ctx.beginPath(); ctx.arc(x,y,11,0,7); ctx.stroke();
+    ctx.fillStyle = css('--you'); ctx.beginPath(); ctx.arc(x,y,4.5,0,7); ctx.fill();
+    ctx.font='800 13px Archivo, sans-serif'; ctx.textAlign = x > w-60 ? 'right':'left';
+    ctx.lineWidth=4; ctx.strokeStyle=css('--card'); ctx.strokeText('You', x + (x > w-60 ? -16 : 16), y+4);
+    ctx.fillText('You', x + (x > w-60 ? -16 : 16), y+4);
+  }
+  return {sx,sy};
+}
+let mapState = {highlight:null};
+const mapCv = $('#map');
+function redrawMain(){ drawMap(mapCv, {labels:true, highlight:mapState.highlight}); }
+redrawMain();
+window.addEventListener('resize', ()=>{ redrawMain(); if (lastYou) drawMap($('#youMap'), lastYou); });
+mapCv.addEventListener('mousemove', e=>{
+  const rect = mapCv.getBoundingClientRect();
+  const px = (e.clientX-rect.left), py = (e.clientY-rect.top);
+  const w = rect.width, h = rect.height, pad=10;
+  const x = (px-pad)/(w-2*pad)*1000, y = (1-(py-pad)/(h-2*pad))*1000;
+  let best=null, bd=1e9;
+  for (const c of clusters){ const d=(c.x-x)**2+(c.y-y)**2; if (d<bd){bd=d;best=c;} }
+  if (best) $('#maptip').innerHTML = `<b>${best.label}</b>, ${fmt(best.n)} submissions`;
+});
+mapCv.addEventListener('click', e=>{
+  const t = $('#maptip').querySelector('b'); if (!t) return;
+  const c = clusters.find(c=>c.label===t.textContent); if (c) showTopic(c.c);
+});
+
+// ---------- topic tables
+const growTxt = (g, c) => { if (g==null || !c || !c.n26) return '–'; const r = c.n/c.n26; const s = r>=10? r.toFixed(0): r.toFixed(1); return `<span class="${g>=1?'up':'down'}">${s}×</span>`; };
+function topicRow(c, maxN){
+  return `<tr class="click" data-c="${c.c}"><td>${c.label}</td><td class="num">${fmt(c.n)}</td><td style="width:30%"><span class="hbar" style="width:${Math.max(2,c.n/maxN*100)}%"></span></td></tr>`;
+}
+const maxN = bySize[0].n;
+$('#tBig').innerHTML = `<tr><th>Topic</th><th style="text-align:right">Papers</th><th></th></tr>` + bySize.slice(0,15).map(c=>topicRow(c,maxN)).join('');
+const growers = clusters.filter(c=>c.g!=null && c.n>=60).sort((a,b)=>b.g-a.g).slice(0,15);
+$('#tGrowT').innerHTML = `<tr><th>Topic</th><th style="text-align:right">2026</th><th style="text-align:right">2027</th><th style="text-align:right">Growth</th></tr>` +
+  growers.map(c=>`<tr class="click" data-c="${c.c}"><td>${c.label}</td><td class="num">${fmt(c.n26)}</td><td class="num">${fmt(c.n)}</td><td class="num">${growTxt(c.g, c)}</td></tr>`).join('');
+let showAll=false;
+function renderAll(q=''){
+  q=q.toLowerCase().trim();
+  let list = bySize;
+  if (q){
+    const titleHits = new Map();
+    for (const r of ROWS) if (r[1].toLowerCase().includes(q)) titleHits.set(r[4], (titleHits.get(r[4])||0)+1);
+    list = bySize.filter(c=>c.label.toLowerCase().includes(q) || c.kw.join(' ').includes(q) || titleHits.has(c.c))
+                 .map(c=>({...c, hits: titleHits.get(c.c)||0})).sort((a,b)=>b.hits-a.hits || b.n-a.n);
+  }
+  $('#tAll').innerHTML = `<tr><th>#</th><th>Topic</th><th style="text-align:right">Papers</th><th style="text-align:right">2026 → 27</th>${q?'<th style="text-align:right">Title hits</th>':''}</tr>` +
+    list.slice(0, q?40:(showAll?400:25)).map(c=>`<tr class="click" data-c="${c.c}"><td class="num" style="text-align:left;color:var(--faint)">${c.rank}</td><td>${c.label}<div class="meta">${c.kw.slice(0,4).join(', ')}</div></td><td class="num">${fmt(c.n)}</td><td class="num">${growTxt(c.g, c)}</td>${q?`<td class="num">${c.hits||''}</td>`:''}</tr>`).join('');
+}
+renderAll();
+$('#tq').addEventListener('input', e=>renderAll(e.target.value));
+$('#more').addEventListener('click', ()=>{showAll=!showAll; $('#more').textContent=showAll?'Show fewer':'Show all topics'; renderAll($('#tq').value);});
+document.addEventListener('click', e=>{ const tr=e.target.closest('tr.click'); if (tr) showTopic(+tr.dataset.c); });
+function paperLi(i, sim){
+  const r = ROWS[i];
+  const b = r[3]===1?'<span class="badge D">desk rejected</span>': r[3]===2?'<span class="badge W">withdrawn</span>':'';
+  return `<li><div><a class="nt" href="https://openreview.net/forum?id=${r[0]}" target="_blank" rel="noopener">${esc(r[1])}</a>${b}<div class="meta">${esc(AREAS[r[2]])}, ${esc(CL.get(r[4]).label)}</div></div>${sim!=null?`<div class="sim">${(sim*100).toFixed(0)}<i style="width:${Math.max(6,(sim-0.5)/0.5*64)}px"></i></div>`:'<div></div>'}</li>`;
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function showTopic(cid){
+  const c = CL.get(cid);
+  mapState.highlight = cid; redrawMain();
+  const p = $('#topicPanel'); p.style.display='block';
+  const ex = ROWS.map((r,i)=>[r,i]).filter(([r])=>r[4]===cid).slice(0,0);
+  p.innerHTML = `<div class="kicker">Topic #${c.rank} of ${clusters.length}</div><div class="topic-name">${esc(c.label)}</div>
+    <div class="chips">${c.kw.map(k=>`<span class="chip">${esc(k)}</span>`).join('')}</div>
+    <div class="kv"><div><div class="l">ICLR 2027</div><div class="v">${fmt(c.n)}</div></div><div><div class="l">ICLR 2026</div><div class="v">${c.n26!=null?fmt(c.n26):'–'}</div></div><div><div class="l">Growth</div><div class="v">${growTxt(c.g, c)}</div></div></div>
+    <p class="note" style="margin:14px 0 4px">Most typical titles</p><ol class="nb">${c.exi.map(i=>paperLi(i,null)).join('')}</ol>`;
+  mapCv.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+// ---------- title words
+$('#words').innerHTML = extra.words.map(w=>`<div class="word"><div class="w">“${esc(w.w)}”</div><div class="p">${w.p27.toFixed(1)}%</div><div class="d">${fmt(w.n27)} titles, ${w.p26!=null?`${w.p26.toFixed(1)}% in 2026`:''}</div></div>`).join('');
+
+// ---------- areas
+const amax = Math.max(...extra.areas.map(a=>a.n));
+$('#areas').innerHTML = `<tr><th>Primary area</th><th style="text-align:right">2027</th><th style="text-align:right">2026</th><th style="text-align:right">Desk rej.</th><th></th></tr>` +
+  extra.areas.map(a=>`<tr><td>${esc(a.a)}</td><td class="num">${fmt(a.n)}</td><td class="num">${a.n26!=null?fmt(a.n26):'–'}</td><td class="num">${a.d.toFixed(1)}%</td><td style="width:22%"><span class="hbar" style="width:${a.n/amax*100}%"></span></td></tr>`).join('');
+
+$('#method').innerHTML = extra.method.map(p=>`<p>${p}</p>`).join('');
+
+// ---------- vectors
+const go = $('#go'), status = $('#status'), bar = $('#bar');
+const [vecBuf, cenBuf] = await Promise.all(['data/vec.bin','data/cent.bin'].map(u=>fetch(u).then(r=>r.arrayBuffer())));
+const VEC = new Int8Array(vecBuf);
+const NORM = new Float32Array(N);
+for (let i=0;i<N;i++){ let s=0; const o=i*DIM; for (let d=0; d<DIM; d++){ const v=VEC[o+d]; s+=v*v; } NORM[i]=Math.sqrt(s)||1; }
+const CEN = new Float32Array(cenBuf); // K*DIM, normalized
+const K = CEN.length/DIM;
+function project(v){
+  const out = new Float32Array(DIM); let n=0;
+  for (let d=0; d<DIM; d++){ out[d]=v[d]; n+=v[d]*v[d]; }
+  n=Math.sqrt(n); for (let d=0;d<DIM;d++) out[d]/=n; return out;
+}
+
+let extractor = null;
+async function loadModel(){
+  status.textContent = 'Loading the model…'; bar.style.display='block';
+  const { pipeline, env } = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1');
+  env.allowLocalModels = false;
+  const prog = {};
+  extractor = await pipeline('feature-extraction', 'Xenova/bge-small-en-v1.5', { dtype:'q8', progress_callback: p=>{
+    if (p.status==='progress' && p.total){ prog[p.file]=[p.loaded,p.total]; let a=0,b=0; for (const [x,y] of Object.values(prog)){a+=x;b+=y;} bar.firstElementChild.style.width=(a/b*100)+'%'; }
+  }});
+  bar.style.display='none'; status.textContent = ''; go.disabled=false; go.textContent='Find my neighbors';
+}
+loadModel().catch(e=>{ status.textContent='Could not load the model in this browser. You can still browse topics below.'; go.textContent='Unavailable'; console.error(e); });
+
+let lastYou = null;
+async function run(text){
+  text = text.trim(); if (text.length < 20){ status.textContent='Paste a little more text, at least a sentence.'; return; }
+  go.disabled = true; status.textContent = 'Comparing with 43,013 submissions…';
+  await new Promise(r=>setTimeout(r,20));
+  const out = await extractor(text, { pooling:'cls', normalize:true });
+  const q = project(out.data);
+  const qi = new Float32Array(DIM); for (let d=0;d<DIM;d++) qi[d]=q[d];
+  const sims = new Float32Array(N);
+  for (let i=0;i<N;i++){ let s=0; const o=i*DIM; for (let d=0; d<DIM; d++) s += qi[d]*VEC[o+d]; sims[i]=s/NORM[i]; }
+  const idx = Array.from({length:N},(_,i)=>i).sort((a,b)=>sims[b]-sims[a]);
+  // skip an exact self-match (same text pasted from OpenReview)
+  const top = idx.filter(i=>sims[i]<0.995).slice(0,20);
+  const exact = idx.find(i=>sims[i]>=0.995);
+  // topic = nearest centroid
+  let bc=0, bs=-9; for (let k=0;k<K;k++){ let s=0; const o=k*DIM; for (let d=0;d<DIM;d++) s+=q[d]*CEN[o+d]; if (s>bs){bs=s;bc=k;} }
+  const c = CL.get(bc);
+  // crowding: average local density of your 10 nearest papers, as a percentile of all submissions
+  const nd = top.slice(0,10).reduce((s,i)=>s+ROWS[i][7],0)/10;
+  let lo=0, hi=DENS.length; while(lo<hi){const m=(lo+hi)>>1; if (DENS[m]<nd) lo=m+1; else hi=m;}
+  const pct = Math.round(lo/DENS.length*100);
+  $('#tName').textContent = c.label;
+  $('#tKw').innerHTML = c.kw.slice(0,5).map(k=>`<span class="chip">${esc(k)}</span>`).join('');
+  $('#tN').textContent = fmt(c.n);
+  $('#tRank').textContent = `#${c.rank} of ${clusters.length}`;
+  $('#tGrow').innerHTML = c.n26 ? `${fmt(c.n26)} → ${fmt(c.n)}` : '–';
+  $('#tCrowd').innerHTML = `Your spot is busier than <b>${pct}%</b> of ICLR 2027 submissions. Dark dots on the map are the rest of your topic.${exact!=null?' Your exact text is already on OpenReview, so that submission is hidden from the list.':''}`;
+  const top10 = top.slice(0,10);
+  const yx = top10.reduce((s,i)=>s+ROWS[i][5],0)/top10.length, yy = top10.reduce((s,i)=>s+ROWS[i][6],0)/top10.length;
+  lastYou = {small:true, you:[yx,yy], nbs:top10, highlight:bc};
+  $('#results').style.display='block';
+  drawMap($('#youMap'), lastYou);
+  $('#nb').innerHTML = top.map(i=>paperLi(i, sims[i])).join('');
+  status.textContent=''; go.disabled=false;
+  $('#results').scrollIntoView({behavior:'smooth'});
+}
+go.addEventListener('click', ()=>run($('#q').value));
+$('#rand').addEventListener('click', async ()=>{
+  const r = await fetch('data/samples.json').then(r=>r.json());
+  const s = r[Math.floor(Math.random()*r.length)];
+  $('#q').value = s;
+  if (extractor) run(s);
+});
+</script>
+</body>
+</html>
